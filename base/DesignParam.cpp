@@ -595,7 +595,7 @@ uint DesignParamTarget::link_scan(const char* flavour, const int from, const boo
         while(matching_links.AnyLinksLeft()) {
             // Get the common link information
             temp.weight  = 1;
-            temp.link_id = matching_links.Link();
+            temp.link_id = matching_links.Link().id;
             temp.dest_id = matching_links.Get().dest;
 
             if(mode == LM_BOTH ||                            // If linkmode is both, let through any destination
