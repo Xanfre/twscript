@@ -46,15 +46,25 @@ BASEDIR   = ./base
 SCRPTDIR  = ./twscript
 DISTDIR   = ./TWScript-$(SCRIPTVER)
 LGDIR     = ../lg
-SCRLIBDIR = ../ScriptLib
+SCRLIBDIR = ../scriptlib
 
 # Commands used
+TARGET ?=
+ifeq ($(TARGET),)
 CC        = gcc
 CXX       = g++
 AR        = ar
 LD        = g++
 DLLTOOL   = dlltool
 RC        = windres
+else
+CC        = $(TARGET)-gcc
+CXX       = $(TARGET)-g++
+AR        = $(TARGET)-ar
+LD        = $(TARGET)-g++
+DLLTOOL   = $(TARGET)-dlltool
+RC        = $(TARGET)-windres
+endif
 PACKER    = 7z
 MAKEDOCS  = $(DOCDIR)/makedocs.pl
 
@@ -70,14 +80,14 @@ SCRIPTLIB = -lScript$(GAME)-d
 else
 DEFINES  := $(DEFINES) -DNDEBUG
 CXXDEBUG  = -O2
-LDDEBUG   =
+LDDEBUG   = -Wl,--strip-all
 LGLIB     = -llg
 SCRIPTLIB = -lScript$(GAME)
 endif
 
 # Command arguments/flags
 ARFLAGS   = rc
-LDFLAGS   = -mwindows -mdll -Wl,--enable-auto-image-base
+LDFLAGS   = -mwindows -mdll -static-libgcc -static-libstdc++ -Wl,--enable-auto-image-base
 LIBDIRS   = -L. -L$(LGDIR) -L$(SCRLIBDIR)
 LIBS      = $(LGLIB) -luuid
 INCLUDES  = -I. -I$(SRCDIR) -I$(LGDIR) -I$(SCRLIBDIR) -I$(PUBDIR) -I$(BASEDIR) -I$(SCRPTDIR)

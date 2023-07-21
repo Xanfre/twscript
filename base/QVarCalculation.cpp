@@ -353,7 +353,7 @@ bool QVarCalculation::parse_calculation(const std::string& calculation, const fl
     }
 
     // No need to retain the temporary buffer anymore
-    delete buffer;
+    delete[] buffer;
 
     // Handle default
     if(!parsed) {
