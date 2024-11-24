@@ -35,7 +35,7 @@ MYOSM     = twscript.osm
 SCRIPTVER = 3.0.0
 
 # Change this to `1` for Thief 1, 3 for SS2.
-GAME      = 2
+GAME     ?= 2
 
 # Directories needed throughout the makefile
 SRCDIR    = .
@@ -213,4 +213,4 @@ $(DISTDIR):
 	mkdir -p $(DISTDIR)/docs
 
 $(MYOSM): $(SCR_OBJS) $(BASE_OBJS) $(PUB_OBJS) $(MISC_OBJS) $(RES_OBJS)
-	$(LD) $(LDFLAGS) -Wl,--image-base=0x11200000 $(LDDEBUG) $(LIBDIRS) -o $@ $(PUBDIR)/script.def $^ $(SCRIPTLIB) $(LIBS)
+	$(LD) $(LDFLAGS) $(LDDEBUG) $(LIBDIRS) -o $@ $(PUBDIR)/script.def $^ $(SCRIPTLIB) $(LIBS)
