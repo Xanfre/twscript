@@ -28,6 +28,10 @@
 #include <lg/malloc.h>
 #include <windows.h>
 
+#ifndef _MSC_VER
+extern "C" { const void *__dyn_tls_init_callback = NULL; }
+#endif
+
 static int __cdecl NullPrintf(const char*, ...);
 
 IMalloc *g_pMalloc = NULL;
